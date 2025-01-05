@@ -26,12 +26,17 @@ public class TC02_PostRequest {
         JSONObject requestParams= new JSONObject();
 
            //2.Adding values to the body
-        requestParams.put("title", "adidas");
-        requestParams.put("body", "shoes");
-        requestParams.put("userId", 0077);
+
+        requestParams.put("id", 109);
+        requestParams.put("title", "this my post request");
+        requestParams.put("body", "first post");
+        requestParams.put("userId", 790);
+
 
            // 3. What type of data we are sending that is json , xml.
         requestSpecification.header("Content-Type","application/json");
+//        requestSpecification.header("Authorization","no-Auth");
+//        requestSpecification.header("Cache-Control","no-cache");
 
            // 4.attching body and header we post request
         requestSpecification.body(requestParams.toString());
@@ -40,6 +45,7 @@ public class TC02_PostRequest {
         Response response= requestSpecification.request(Method.POST,"posts");
         String contenttype=response.header("Content-Type");
 
+        System.out.println(response.getBody().asString());
 
         Assert.assertEquals(contenttype,"application/json; charset=utf-8");
 

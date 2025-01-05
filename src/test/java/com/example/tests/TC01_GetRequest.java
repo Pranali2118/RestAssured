@@ -18,25 +18,26 @@ import org.testng.annotations.Test;
 public class TC01_GetRequest {
     @Test
     void getuserdetails(){
+
+
         RestAssured.baseURI="https://jsonplaceholder.typicode.com";
 
-        RequestSpecification httprequest= RestAssured.given();// RequestBody
+        RequestSpecification httprequest= RestAssured.given();// RequestBody RestAssured.given(): This initiates the request specification. You can chain other methods to configure the request.
 
-        Response response= httprequest.request(Method.GET,"/posts/1");//ResponseBody
-
+        Response response= httprequest.request(Method.GET,"/posts");//ResponseBody
 
         String ResponseBody=response.getBody().asString();// getbody returned in json formate and then converted json to string using asString()
 
-//        System.out.println(response.headers());
+       System.out.println(ResponseBody);
 
         int statuscode=response.getStatusCode();
 
-//        System.out.println(statuscode);
+        System.out.println(response.getStatusLine());
 
         Assert.assertEquals(statuscode,200,"Pass");
 
-        Assert.assertEquals(ResponseBody.contains("id"),true);// true
-      //  Assert.assertEquals(ResponseBody.contains("idd"),true);//false beause of idd not exists
+        Assert.assertTrue(ResponseBody.contains("id"));// true
+      //  Assert.assertEquals(ResponseBody.contains("idd"),true);//false because of idd not exists
 
 
         //Validate headers
